@@ -1,28 +1,15 @@
 import React from  'react';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { FaTimes } from 'react-icons/fa';
 
-const tasks = [
-    {
-        id: 1,
-        name: 'Sexy'
-    },
-    {
-        id: 2,
-        name: 'Very Sexy'
-    },
-    {
-        id: 3,
-        name: 'Very Very Sexy'
-    }
-];
-const Task = () => {
+const Task = ({task, onDelete}) => {
     return (
-        <div>
-            {
-                tasks.map((t) => {
-                   return <h3 key = {t.id}> { t.name } </h3>
-                })
-            }
+        <div className='task'>
+            <h3 key={task.key}>
+                {task.name}
+                <FaTimes onClick = {() => onDelete(task.id)} style={{ color : 'red', cursor : 'pointer' }} />
+            </h3>
         </div>
     );
 };
