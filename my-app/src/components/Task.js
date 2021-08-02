@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 
-const Task = ({task, onDelete}) => {
+const Task = ({task, onDelete, toggleReminder }) => {
+    let classNames = 'task ';
+    classNames += task.reminder ? 'reminder' : '';
     return (
-        <div className='task'>
+        <div onDoubleClick={ () => toggleReminder(task.id) } className={classNames}>
             <h3 key={task.key}>
                 {task.name}
                 <FaTimes onClick = {() => onDelete(task.id)} style={{ color : 'red', cursor : 'pointer' }} />
