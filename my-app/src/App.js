@@ -43,10 +43,18 @@ function App() {
         setTasks([...tasks, { id, reminder, day, name: text }]);
     };
 
+    const [showAddTask, setShowAddTask] = useState(false);
+
+    const toggleAddTaskBtn = () => {
+      setShowAddTask(!showAddTask);
+    };
+
     return (
         <div className='container'>
-            <Header title='Hola'/>
-            <AddTask onAdd={addTask} />
+            <Header toggleAddTaskBtn={toggleAddTaskBtn} title='Hola'/>
+            {
+                showAddTask && <AddTask onAdd={addTask} />
+            }
             {
                 tasks.length > 0 ?
                     (<Tasks tasks={tasks} onDelete={onDelete} toggleReminder={toggleReminder}/>)
