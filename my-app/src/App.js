@@ -12,6 +12,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 class App extends Component {
   state = {
     users: [],
+    repos: [],
     isLoading: false,
     alert: null,
     user: {},
@@ -31,6 +32,14 @@ class App extends Component {
       `https://api.github.com/users/${username}?client_id=510115bfbfe9a19aa2fd&client_secret=1b2ffda8e0c38489adab57c8f38a6982d0fdb1e3`
     );
     this.setState({ isLoading: false, user: res.data });
+  };
+
+  getUserRepos = async (username) => {
+    this.setState({ isLoading: true });
+    const res = await axios.get(
+      `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=510115bfbfe9a19aa2fd&client_secret=1b2ffda8e0c38489adab57c8f38a6982d0fdb1e3`
+    );
+    this.setState({ isLoading: false, repos: res.data });
   };
   /*
   async componentDidMount() {
@@ -87,7 +96,9 @@ class App extends Component {
                   <User
                     {...props}
                     getUser={this.getUser}
+                    getUserRepos={this.getUserRepos}
                     user={this.state.user}
+                    repos={this.state.repos}
                   />
                 )}
               />
